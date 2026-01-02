@@ -39,8 +39,8 @@ describe('MonobankAPI', () => {
     it('should throw error on failed fetch', async () => {
       (global.fetch as jest.Mock).mockResolvedValue({
         ok: false,
-        status: 500
-      });
+        status: 500,
+      statusText: '500'      });
 
       await expect(api.getCurrencyRates()).rejects.toThrow(
         'Failed to fetch currency rates: 500'
