@@ -80,7 +80,7 @@ export class MonobankAPI {
     if (!response.ok) {
       throw new Error(`Failed to fetch currency rates: ${response.statusText}`);
     }
-    return response.json() as Currency[];
+    return await response.json() as Currency[];
   }
 
   /**
@@ -98,7 +98,7 @@ export class MonobankAPI {
     if (!response.ok) {
       throw new Error(`Failed to fetch client info: ${response.statusText}`);
     }
-    return response.json() as ClientInfo;
+    return await response.json() as ClientInfo;
   }
 
   /**
@@ -127,7 +127,7 @@ export class MonobankAPI {
     if (!response.ok) {
       throw new Error(`Failed to fetch statement: ${response.statusText}`);
     }
-    return response.json() as Statement[];
+    return await response.json() as Statement[];
   }
 
   /**
