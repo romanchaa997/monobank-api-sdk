@@ -98,7 +98,7 @@ export class MonobankAPI {
     if (!response.ok) {
       throw new Error(`Failed to fetch client info: ${response.statusText}`);
     }
-    return response.json( as ClientInfo[;
+    return response.json() as ClientInfo;
   }
 
   /**
@@ -127,7 +127,7 @@ export class MonobankAPI {
     if (!response.ok) {
       throw new Error(`Failed to fetch statement: ${response.statusText}`);
     }
-    return response.json( as Statement[];
+    return response.json() as Statement[];
   }
 
   /**
