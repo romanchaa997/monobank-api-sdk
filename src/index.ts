@@ -80,7 +80,7 @@ export class MonobankAPI {
     if (!response.ok) {
       throw new Error(`Failed to fetch currency rates: ${response.statusText}`);
     }
-    return response.json( as Currency[];
+    return response.json() as Currency[];
   }
 
   /**
