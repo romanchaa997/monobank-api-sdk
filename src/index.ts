@@ -150,6 +150,84 @@ export class MonobankAPI {
       throw new Error(`Failed to set webhook: ${response.statusText}`);
     }
   }
+
+    /**
+   * Get all savings jars
+   */
+  async getJars(): Promise<Jar[]> {
+    if (!this.token) {
+      throw new Error('API token is required for this operation');
+    }
+    const response = await fetch(`${this.baseURL}/personal/jars`, {
+      headers: {
+        'X-Token': this.token,
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`Failed to fetch jars: ${response.statusText}`);
+    }
+    return await response.json() as Jar[];
+  }
+
+  /**
+   * Create new savings jar
+   */
+  async createJar(title: string, description: string, currencyCode: number, goal: number): Promise<Jar> {
+    if (!this.token) {
+      throw new Error('API token is required for this operation');
+    }
+    const response = await fetch(`${this.baseURL}/personal/jars`, {
+      method: 'POST',
+      headers: {
+        'X-Token': this.token,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ title, description, currencyCode, goal }),
+    });
+    if (!response.ok) {
+      throw new Error(`Failed to create jar: ${response.statusText}`);
+    }
+    return await response.json() as Jar;
+  }
+
+  /**
+   * Update existing savings jar
+   */
+  async updateJar(jarId: string, title: string, goal: number): Promise<Jar> {
+    if (!this.token) {
+      throw new Error('API token is required for this operation');
+    }
+    const response = await fetch(`${this.baseURL}/personal/jars/${jarId}`, {
+      method: 'PUT',
+      headers: {
+        'X-Token': this.token,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ title, goal }),
+    });
+    if (!response.ok) {
+      throw new Error(`Failed to update jar: ${response.statusText}`);
+    }
+    return await response.json() as Jar;
+  }
+
+  /**
+   * Delete savings jar
+   */
+  async deleteJar(jarId: string): Promise<void> {
+    if (!this.token) {
+      throw new Error('API token is required for this operation');
+    }
+    const response = await fetch(`${this.baseURL}/personal/jars/${jarId}`, {
+      method: 'DELETE',
+      headers: {
+        'X-Token': this.token,
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`Failed to delete jar: ${response.statusText}`);
+    }
+  }
 }
 
 export default MonobankAPI;
